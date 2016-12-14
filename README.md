@@ -10,4 +10,3 @@ This is work in progress and at this point it doesn't work properly.
 * Implement 6502 memory reading bug
 * Implement 6502 cycle counting
 * Finish clocking for Apple 1 (1 MHz)
-* Implement scrolling for the console output
