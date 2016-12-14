@@ -65,17 +65,20 @@ void IO::updateDisplay(uint8_t dsp) {
     
     uint8_t charToDisplay = dsp;
     
-    // Uppercase
-    if (dsp >= 0x60 && dsp <= 0x7F)
+    /* Uppercase
+    if (dsp >= 0x61 && dsp <= 0x7F)
       charToDisplay &= 0x5F;
-
+    */
+    
     // Get the cursor position
     int x, y;
     getyx(this->window, y, x);
     
     if (charToDisplay == '\r') {
-      move(++y, 0);      
-    } else if (charToDisplay >= ' ' && charToDisplay <= '_') {
+      move(++y, 0);
+    } else if (charToDisplay == '_') {
+      move(y, --x);
+    } else if (charToDisplay >= ' ' && charToDisplay < '_') {
       addch(charToDisplay);
       ++x;
     } else if (!charToDisplay) {
@@ -101,18 +104,30 @@ void IO::updateDisplay(uint8_t dsp) {
 
 void IO::updateKeyboard() {
   
-  char ch = getch();  
+  char inputChar = getch();  
 
-  if (ch != ERR) {
+  if (inputChar != ERR) {
     // Uppercase
-    if (ch >= 0x61 && ch <= 0x7a)
-      ch &= 0x5F;
+    if (inputChar >= 'a' && inputChar <= 'z')
+      // ch &= 0x5F;
+      inputChar ^= 0x20;
 
-    if (ch == '\n')
-      // Old ASCII keyboard...
-      ch = '\r';
+    /*
+      Replace newline with carriege return
+      because this is how 'Enter' worked on
+      old ASCII keyboards
+    */
+    if (inputChar == '\n')
+      inputChar = '\r';
 
-    this->ram->write(PIA_KBD, 0x80 | ch);
+    /*
+      For the same reason replace BACKSPACE
+      with '_'
+    */
+    if (inputChar == BACKSPACE)
+      inputChar = '_';
+    
+    this->ram->write(PIA_KBD, 0x80 | inputChar);
     // set b7 to 1 - character was read
     this->ram->write(PIA_KBD_CR, 0xA7);
   } 

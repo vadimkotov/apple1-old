@@ -37,6 +37,13 @@ DSP CR  $D013 - display  control register
 #define PIA_IRQ_2      0x80 // bit
 
 
+/*
+  ncurses reads backspace as 127
+  as opposed to \b
+*/
+#define BACKSPACE 127
+
+
 
 #define TEXT_WIDTH  40
 #define TEXT_HEIGHT 24
