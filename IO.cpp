@@ -22,7 +22,7 @@ IO::IO(RAM* ram) {
   cbreak();
   noecho();
   nodelay(this->window, true);
-
+  scrollok(window, true);
 }
 
 IO::~IO() {
@@ -86,8 +86,13 @@ void IO::updateDisplay(uint8_t dsp) {
     
     refresh();
     
-    // TODO: scrolling
+    // Vertical scrolling
+    if (y == TEXT_HEIGHT) {
+      scroll(this->window);
+      move(--y, 0);
+    }
 
+    
     // Clear b7
     this->ram->write(PIA_DSP, dsp);
     
