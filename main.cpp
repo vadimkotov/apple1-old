@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "RAM.h"
 #include "CPU.h"
 #include "IO.h"
@@ -83,13 +84,14 @@ int main(int argc, char* argv[]) {
   cpu->reset();
   io->reset();
 
-  Logger *logger = new Logger();
+  // Logger *logger = new Logger();
   
   // for (int i = 0; i < 20; i++) {
   for (;;) {
-    logger->logStatus(cpu);
-    cpu->execute();
+    // logger->logStatus(cpu);
+    usleep(1000);
     io->update();
+    cpu->execute(); 
   }
   
 

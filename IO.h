@@ -52,6 +52,8 @@ class IO {
  private:
   RAM* ram;
   WINDOW* window;
+  
+  void updateDisplay(uint8_t dsp);
+  void updateKeyboard();
 
-  // int y, x;
 };
