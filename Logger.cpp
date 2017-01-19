@@ -43,30 +43,14 @@ void Logger::logCPU(CPU* cpu) {
 }
 
 void Logger::logStatus(CPU* cpu) {
-  
-  if (this->state == 0) {
+
     for (int i = 0; i < NUMBER_OF_FUNCTIONS; ++i) {
       if (cpu->PC == this->monitorAddresses[i]) {
         fwrite(this->monitorNames[i], 1, this->monitorSizes[i], this->file);
         fwrite(":\n", 1, 2, this->file);
         this->logCPU(cpu);
-        this->state = 1;
+
       }
     }
-    
-  } else  {
-    this->logCPU(cpu);
-    this->state = 0;
-  }
-
- 
-
-  // if (this->kbd != newKbd || this->dsp != newDsp) {
-
-  // this->kbd = newKbd;
-  // this->dsp = newDsp;
-
-  
-    //}
 }
 
