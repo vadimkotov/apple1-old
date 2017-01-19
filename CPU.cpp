@@ -887,6 +887,7 @@ uint16_t CPU::getOperandAddress(addr_mode_t addrMode) {
 
   case IND: // Inderect (JMP only)
     address = this->readWord(this->PC);
+    address = this->readWord(address);
     this->PC += 2;
     break;
     
