@@ -1,3 +1,6 @@
+
+# THIS IS OLD CODE FOR REFERENCE ONLY
+
 # apple1
 
 Simple Apple 1 emulator. I figured, writing an Apple 1 emulator is a good way to test a 6502 CPU emulator.
